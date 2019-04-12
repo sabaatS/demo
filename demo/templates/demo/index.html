@@ -1,1 +1,28 @@
-hello world
+{% load static %}
+
+<script>
+    function showHint(str, url) {
+        if (str.length == 0) { 
+            document.getElementById("txtHint").innerHTML = "";
+            return;
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+            
+                var data = JSON.parse(this.responseText);
+
+                document.getElementById("txtHint").innerHTML = JSON.stringify(data);
+              }
+            };
+            url = document.getElementById('input').getAttribute('url-val');
+            
+            xmlhttp.open("GET", url + '?query=' + str, true);
+            xmlhttp.send();
+          }
+        }
+</script>
+
+<input onkeyup="showHint(this.value)" id="input" type="text" url-val="{% url 'demo:get_album' %}"  name="query">
+<div id="txtHint"></div>
+

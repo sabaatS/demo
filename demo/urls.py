@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.conf.urls import url
 
 app_name = 'demo'
 
 urlpatterns = [
-    path('/', views.index, name='index'),
+    url(r'^$', views.index, name='index'),
+    url(r'^get_album/$', views.get_album, name='get_album'),
+    
 ]
